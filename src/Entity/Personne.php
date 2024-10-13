@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PersonneRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -12,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'disc', type: 'string')]
 #[ORM\DiscriminatorMap(['passager' => Passager::class, 'chauffeur' => Chauffeur::class])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class   Personne implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
